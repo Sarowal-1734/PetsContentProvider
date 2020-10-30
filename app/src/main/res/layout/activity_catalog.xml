@@ -7,11 +7,10 @@
     android:orientation="vertical"
     tools:context=".CatalogActivity">
 
-    <TextView
-        android:id="@+id/pet_text_box"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

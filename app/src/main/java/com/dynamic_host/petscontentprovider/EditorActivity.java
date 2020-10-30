@@ -77,7 +77,7 @@ public class EditorActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {selectedGender = "Unknown"; }
         });
     }
 

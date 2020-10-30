@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dynamic_host.petscontentprovider.database.PetDbHelper;
@@ -41,37 +42,10 @@ public class CatalogActivity extends AppCompatActivity {
 
         String[] projection = {PetEntry._ID, PetEntry.COLUMN_NAME, PetEntry.COLUMN_BREED, PetEntry.COLUMN_GENDER, PetEntry.COLUMN_WEIGHT};
         Cursor cursor = getContentResolver().query(PetEntry.CONTENT_URI, projection, null, null, null);
-        try {
-            TextView displayView = findViewById(R.id.pet_text_box);
-            displayView.setText("Numbers of rows in pets database table: "+ cursor.getCount()+"\n\n");
-            displayView.append(PetEntry._ID+"    "+
-                    PetEntry.COLUMN_NAME+"    "+
-                    PetEntry.COLUMN_BREED+"    "+
-                    PetEntry.COLUMN_GENDER+"    "+
-                    PetEntry.COLUMN_WEIGHT+"\n");
-
-            //Finding index of each column
-            int idColumnIndex = cursor.getColumnIndex(PetEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_NAME);
-            int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_BREED);
-            int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_GENDER);
-            int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_WEIGHT);
-
-            while (cursor.moveToNext()){
-                int currentId = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                String currentBreed = cursor.getString(breedColumnIndex);
-                String currentGender = cursor.getString(genderColumnIndex);
-                String currentWeight = cursor.getString(weightColumnIndex);
-                displayView.append("\n  " + currentId + "      " +
-                        currentName+"      "+
-                        currentBreed+"        "+
-                        currentGender+"             "+
-                        currentWeight);
-            }
-        }finally {
-            cursor.close();
-        }
+        ListView petListView = findViewById(R.id.list);
+        //Setup an adapter to create a list in the cursor
+        PetCursorAdapter adapter = new PetCursorAdapter(this, cursor);
+        petListView.setAdapter(adapter);  //Attach the adapter to the ListView 
 
     }
 
