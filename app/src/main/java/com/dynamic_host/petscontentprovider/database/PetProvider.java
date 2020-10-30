@@ -78,7 +78,9 @@ public class PetProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int id = db.delete(PetContract.PetEntry.TABLE_NAME, selection, selectionArgs);
+        return id;
     }
 
     @Override

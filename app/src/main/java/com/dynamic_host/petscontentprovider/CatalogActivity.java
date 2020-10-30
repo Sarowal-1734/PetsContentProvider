@@ -50,7 +50,6 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
 
-
     public void insertToDatabase(){
         ContentValues values = new ContentValues();
         values.put(PetEntry.COLUMN_NAME, "Cat");
@@ -59,6 +58,12 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(PetEntry.COLUMN_WEIGHT, 5);
         //Insert a new row for Toto into the provider using the ContentResolver.
         getContentResolver().insert(PetEntry.CONTENT_URI, values);
+    }
+
+    private void deleteAllPets() {
+        int id = getContentResolver().delete(PetEntry.CONTENT_URI, null, null);
+        if (id != -1)
+            Toast.makeText(this, "All Pets are Deleted!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -74,7 +79,7 @@ public class CatalogActivity extends AppCompatActivity {
                 displayDatabaseInfo();
                 return true;
             case R.id.delete_all_entries:
-                Toast.makeText(CatalogActivity.this, "All Entries Deleeted!", Toast.LENGTH_SHORT).show();
+                deleteAllPets();
                 return true;
         }
         return super.onOptionsItemSelected(item);
